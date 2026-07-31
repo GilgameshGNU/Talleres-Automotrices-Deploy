@@ -1,0 +1,343 @@
+<!-- client_dashboard.blade.php — Portal del Cliente (Estilo Web 3D & Responsive Bootstrap) -->
+
+<div id="clientPortal" style="display: none; flex-direction: column; min-height: 100vh; width: 100%;">
+
+    <!-- ─── NAVBAR 3D GLASSMORPHISM ─────────────────────────────────── -->
+    <nav class="cp-navbar">
+        <div class="cp-nav-brand">
+            <div class="cp-logo-icon">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <div class="cp-brand-text">
+                <strong>Taller</strong>
+                <span>Portal Cliente 3D</span>
+            </div>
+        </div>
+
+        <div class="cp-nav-links">
+            <button class="cp-nav-link active" id="cp-nav-btn-inicio" onclick="switchClientTab('inicio')">
+                <i class="fa-solid fa-house"></i> Inicio
+            </button>
+            <button class="cp-nav-link" id="cp-nav-btn-catalogo" onclick="switchClientTab('catalogo')">
+                <i class="fa-solid fa-desktop"></i> Catálogo <i class="fa-solid fa-chevron-down" style="font-size:0.7rem; margin-left:0.3rem;"></i>
+            </button>
+            <button class="cp-nav-link" id="cp-nav-btn-proveedores" onclick="switchClientTab('proveedores')">
+                <i class="fa-solid fa-truck"></i> Proveedores <i class="fa-solid fa-chevron-down" style="font-size:0.7rem; margin-left:0.3rem;"></i>
+            </button>
+            <button class="cp-nav-link" id="cp-nav-btn-perfil" onclick="switchClientTab('perfil')">
+                <i class="fa-regular fa-user"></i> Mi perfil <i class="fa-solid fa-chevron-down" style="font-size:0.7rem; margin-left:0.3rem;"></i>
+            </button>
+        </div>
+
+        <div class="cp-nav-actions">
+            <button class="cp-icon-btn" title="Notificaciones"><i class="fa-regular fa-bell"></i></button>
+            <button class="cp-profile-btn" onclick="switchClientTab('perfil')">
+                <div class="cp-avatar" id="cp-avatar-initial">C</div>
+                <span id="cp-nav-name" style="font-weight: 700;">Cargando...</span>
+            </button>
+            <button class="cp-icon-btn" onclick="openLogoutModal()" title="Cerrar sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ─── CONTENIDO PRINCIPAL WEB DESKTOP ────────────────────────── -->
+    <main class="cp-main-content">
+
+        <!-- INICIO TAB — PANEL PRINCIPAL 3D -->
+        <section id="cp-tab-inicio" class="cp-tab-content active">
+            
+            <!-- Banner Hero 3D -->
+            <div class="cp-inicio-banner card-3d">
+                <div class="cp-banner-text">
+                    <h2>Tu taller automotriz inteligente</h2>
+                    <p>Bienvenido a tu panel de control. Explora el catálogo interactivo de servicios, gestiona los proveedores aliados y consulta los detalles de tu cuenta en tiempo real.</p>
+                    <div class="cp-banner-actions">
+                        <button class="cp-btn cp-btn-primary" onclick="switchClientTab('catalogo')">
+                            <i class="fa-solid fa-desktop"></i> Explorar catálogo
+                        </button>
+                        <button class="cp-btn cp-btn-outline" style="color: white; border-color: rgba(255,255,255,0.4);" onclick="switchClientTab('proveedores')">
+                            <i class="fa-solid fa-truck"></i> Ver proveedores
+                        </button>
+                    </div>
+                </div>
+                <div class="cp-banner-3d-graphic">
+                    <i class="fa-solid fa-car-tunnel"></i>
+                </div>
+            </div>
+
+            <!-- Resumen de KPIs en 3D -->
+            <div class="cp-kpi-grid">
+                <div class="cp-kpi-card card-3d">
+                    <div class="cp-kpi-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+                        <i class="fa-solid fa-wrench"></i>
+                    </div>
+                    <div>
+                        <div class="cp-kpi-val" id="cp-kpi-servicios-val">—</div>
+                        <div class="cp-kpi-lbl">Servicios disponibles</div>
+                    </div>
+                </div>
+
+                <div class="cp-kpi-card card-3d">
+                    <div class="cp-kpi-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                        <i class="fa-solid fa-truck"></i>
+                    </div>
+                    <div>
+                        <div class="cp-kpi-val" id="cp-kpi-prov-val">—</div>
+                        <div class="cp-kpi-lbl">Proveedores aliados</div>
+                    </div>
+                </div>
+
+                <div class="cp-kpi-card card-3d">
+                    <div class="cp-kpi-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <div class="cp-kpi-val" id="cp-kpi-rol-val">Cliente</div>
+                        <div class="cp-kpi-lbl">Estado de cuenta</div>
+                    </div>
+                </div>
+
+                <div class="cp-kpi-card card-3d">
+                    <div class="cp-kpi-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <div>
+                        <div class="cp-kpi-val">24 / 7</div>
+                        <div class="cp-kpi-lbl">Soporte y atención</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rejilla de Módulos Web estilo Desktop -->
+            <div class="cp-page-header">
+                <h3 style="font-size: 1.4rem; font-weight: 900; color: #0f172a;">Accesos Rápidos al Sistema</h3>
+                <p style="color: #64748b; font-size: 0.92rem;">Selecciona cualquiera de las secciones para interactuar de forma inmediata.</p>
+            </div>
+
+            <div class="cp-inicio-grid">
+                <div class="cp-inicio-card card-3d" onclick="switchClientTab('catalogo')">
+                    <div class="cp-inicio-card-icon" style="background: #eef2ff; color: #6366f1;">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+                    <div>
+                        <h4>Catálogo de Servicios</h4>
+                        <p>Explora la gama completa de servicios automotrices, precios base y tiempo estimado de mantenimiento.</p>
+                        <span class="cp-inicio-card-link">Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <div class="cp-inicio-card card-3d" onclick="switchClientTab('proveedores')">
+                    <div class="cp-inicio-card-icon" style="background: #ecfeff; color: #06b6d4;">
+                        <i class="fa-solid fa-truck"></i>
+                    </div>
+                    <div>
+                        <h4>Directorio de Proveedores</h4>
+                        <p>Conoce a los proveedores registrados, razones sociales, números de NIT y datos de contacto.</p>
+                        <span class="cp-inicio-card-link">Ver proveedores <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <div class="cp-inicio-card card-3d" onclick="switchClientTab('perfil')">
+                    <div class="cp-inicio-card-icon" style="background: #fef3c7; color: #f59e0b;">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <div>
+                        <h4>Mi Perfil & Configuración</h4>
+                        <p>Consulta la información de tu cuenta, tu rol asignado en el sistema y actualiza tus credenciales.</p>
+                        <span class="cp-inicio-card-link">Ver mi perfil <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATÁLOGO TAB — SERVICIOS EN REJILLA 3D -->
+        <section id="cp-tab-catalogo" class="cp-tab-content">
+            <div class="cp-breadcrumbs">
+                <span onclick="switchClientTab('inicio')">Portal Cliente</span>
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>Catálogo de servicios</span>
+            </div>
+            
+            <div class="cp-page-header">
+                <h1 class="cp-page-title">Catálogo de Servicios Automotrices</h1>
+                <p class="cp-page-subtitle">Explora los servicios disponibles con tarifas actualizadas e información técnica. <span class="cp-cu-badge">Catálogo Activo</span></p>
+            </div>
+
+            <div class="cp-filter-pills" id="cp-tipo-pills">
+                <button class="cp-pill active" data-tipo="todos">Todos los servicios</button>
+            </div>
+
+            <div class="cp-catalog-grid" id="cp-catalog-container">
+                <div class="cp-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando catálogo 3D...</div>
+            </div>
+        </section>
+
+        <!-- PROVEEDORES TAB — DIRECTORIO WEB 3D -->
+        <section id="cp-tab-proveedores" class="cp-tab-content">
+            <div class="cp-breadcrumbs">
+                <span onclick="switchClientTab('inicio')">Portal Cliente</span>
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>Proveedores</span>
+            </div>
+            
+            <div class="cp-page-header">
+                <h1 class="cp-page-title">Directorio de Proveedores Aliados</h1>
+                <p class="cp-page-subtitle">Red de proveedores oficiales asociados al taller. <span class="cp-cu-badge">Directorio</span></p>
+            </div>
+
+            <div class="cp-search-bar card-3d">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="cp-prov-search" placeholder="Buscar proveedor por razón social, NIT o correo..." oninput="filterProveedores(this.value)">
+            </div>
+
+            <div class="cp-proveedores-grid" id="cp-proveedores-container">
+                <div class="cp-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando directorio de proveedores...</div>
+            </div>
+        </section>
+
+        <!-- PERFIL TAB — PANEL DE USUARIO DESKTOP -->
+        <section id="cp-tab-perfil" class="cp-tab-content">
+            <div class="cp-breadcrumbs">
+                <span onclick="switchClientTab('inicio')">Portal Cliente</span>
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>Mi perfil</span>
+            </div>
+
+            <div class="cp-profile-container">
+                <!-- Columna Izquierda: Tarjeta Principal 3D -->
+                <div class="cp-profile-sidebar">
+                    <div class="cp-profile-card card-3d">
+                        <div class="cp-profile-avatar-large" id="cp-profile-avatar-large">C</div>
+                        <h2 class="cp-profile-name-large" id="cp-profile-name-large">Cargando...</h2>
+                        <p class="cp-profile-company" id="cp-profile-company">Cliente Taller Automotriz</p>
+                        <p class="cp-profile-since" id="cp-profile-since-large">Cliente registrado</p>
+                        
+                        <button class="cp-btn cp-btn-primary w-100" style="margin-top: 1.5rem;" onclick="cp_openEditProfileModal()">
+                            <i class="fa-regular fa-pen-to-square"></i> Editar mi perfil
+                        </button>
+                    </div>
+
+                    <div class="cp-profile-card card-3d">
+                        <h3 style="font-size: 1.1rem; font-weight: 900; color: #0f172a; margin-bottom: 1rem;">Permisos de mi cuenta</h3>
+                        <div class="cp-permisos-list" id="cp-permisos-container">
+                            <div class="cp-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando permisos...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Datos & Seguridad -->
+                <div class="cp-profile-details">
+                    <!-- Datos Personales -->
+                    <div class="cp-profile-section card-3d">
+                        <div class="cp-section-header">
+                            <h3><i class="fa-solid fa-id-card" style="color: #6366f1; margin-right: 0.5rem;"></i> Información Personal</h3>
+                        </div>
+                        <div class="cp-info-grid">
+                            <div class="cp-info-item">
+                                <label>Nombre Completo</label>
+                                <p id="cp-info-nombre">-</p>
+                            </div>
+                            <div class="cp-info-item">
+                                <label>Correo Electrónico</label>
+                                <p id="cp-info-email">-</p>
+                            </div>
+                            <div class="cp-info-item">
+                                <label>Empresa / Organización</label>
+                                <p id="cp-info-empresa">No registrado</p>
+                            </div>
+                            <div class="cp-info-item">
+                                <label>Teléfono de Contacto</label>
+                                <p id="cp-info-telefono">No registrado</p>
+                            </div>
+                            <div class="cp-info-item">
+                                <label>Ciudad / Ubicación</label>
+                                <p id="cp-info-ciudad">No registrado</p>
+                            </div>
+                            <div class="cp-info-item">
+                                <label>Rol Asignado</label>
+                                <p id="cp-info-rol">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguridad de la Cuenta -->
+                    <div class="cp-profile-section card-3d">
+                        <div class="cp-section-header">
+                            <h3><i class="fa-solid fa-shield-halved" style="color: #6366f1; margin-right: 0.5rem;"></i> Seguridad y Estado</h3>
+                        </div>
+
+                        <div class="cp-security-item">
+                            <div class="cp-security-info">
+                                <h4>Contraseña de acceso</h4>
+                                <p>Protegida mediante encriptación segura</p>
+                            </div>
+                            <button class="cp-btn cp-btn-text" onclick="cp_openEditProfileModal()">Cambiar contraseña</button>
+                        </div>
+
+                        <div class="cp-security-item">
+                            <div class="cp-security-info">
+                                <h4>Estado de la Sesión</h4>
+                                <p>Conectado actualmente al sistema web</p>
+                            </div>
+                            <span class="cp-status-badge cp-status-completed">Sesión Activa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL EDITAR PERFIL 3D -->
+    <div id="cp-edit-profile-modal" class="cp-modal-overlay" style="display: none;">
+        <div class="cp-modal">
+            <div class="cp-modal-header">
+                <h2><i class="fa-regular fa-pen-to-square" style="color: #6366f1; margin-right: 0.5rem;"></i> Editar Perfil de Cliente</h2>
+                <button class="cp-modal-close" onclick="cp_closeEditProfileModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="cp_handleEditProfile(event)">
+                <div class="cp-modal-body">
+                    <p style="font-size:0.9rem; color:#64748b; margin-bottom:1.5rem;">Actualiza tu información de contacto y credenciales de acceso al portal.</p>
+
+                    <div class="cp-form-group">
+                        <label>Nombre de Usuario</label>
+                        <input type="text" id="cp_edit_nombre" class="cp-form-control" required>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="cp_edit_email" class="cp-form-control" required>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label>Empresa</label>
+                        <input type="text" id="cp_edit_empresa" class="cp-form-control">
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label>Teléfono</label>
+                        <input type="text" id="cp_edit_telefono" class="cp-form-control">
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label>Ciudad</label>
+                        <input type="text" id="cp_edit_ciudad" class="cp-form-control">
+                    </div>
+
+                    <div class="cp-form-divider">Cambio de Contraseña</div>
+
+                    <div class="cp-form-group">
+                        <label>Nueva Contraseña <span style="font-weight:normal;color:#94a3b8;">(opcional)</span></label>
+                        <input type="password" id="cp_edit_password" class="cp-form-control" placeholder="Dejar en blanco si no deseas cambiarla">
+                    </div>
+                </div>
+                <div class="cp-modal-footer">
+                    <button type="button" class="cp-btn cp-btn-outline" onclick="cp_closeEditProfileModal()">Cancelar</button>
+                    <button type="submit" class="cp-btn cp-btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

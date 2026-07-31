@@ -1,0 +1,324 @@
+/* Importar Outfit exclusivamente para portales operativos */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Tokens operativos — complementan dashboard.css */
+:root {
+  --bg-base:   #04100e;
+  --bg-mid:    #071613;
+  --bg-light:  #0e2b28;
+  --accent-primary:   #b6f24a;   /* mismo que --clr-brand-500 */
+  --accent-secondary: #22d3c5;   /* mismo que --clr-accent    */
+  --accent-soft:      #d7ff96;   /* mismo que --clr-brand-200  */
+  --text-primary:   #ffffff;
+  --text-secondary: #9db8b0;
+  --text-muted:     #5f9c92;
+  --state-success: #10b981;      /* mismo que --clr-success */
+  --state-warning: #f59e0b;      /* mismo que --clr-warning */
+  --state-danger:  #ef4444;      /* mismo que --clr-danger  */
+  --state-info:    #38bdf8;
+  --glass-card-bg: rgba(16, 25, 18, 0.06);
+  --glass-card-border: rgba(120,180,170,0.25);
+  --gradient-primary:  linear-gradient(100deg, #b6f24a, #22d3c5);
+
+  /* Bootstrap overrides (mismos valores que admin) */
+  --bs-success: #10b981;
+  --bs-warning: #f59e0b;
+  --bs-danger:  #ef4444;
+  --bs-info:    #38bdf8;
+}
+
+/* ─── Navbar glass SPA (sin sidebar) ───────────────────────── */
+.op-navbar {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(15,23,42,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem; height: 68px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+.op-navbar-brand { display:flex; align-items:center; gap:.85rem; }
+.op-navbar-icon {
+  width:38px; height:38px; border-radius:10px;
+  background: var(--gradient-primary);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; color:#04100e; font-weight:900;
+  box-shadow: 0 4px 14px rgba(182,242,74,0.45);
+}
+.op-navbar-title { font-weight:800; font-size:1rem; color:#fff; }
+.op-navbar-sub { font-size:.7rem; color:var(--text-muted); }
+.op-nav-links { display:flex; gap:.25rem; }
+.op-nav-btn {
+  background: transparent; border: none;
+  color: var(--text-secondary); padding:.5rem .9rem;
+  border-radius:10px; cursor:pointer; font-size:.88rem;
+  font-weight:600; font-family:'Outfit',sans-serif;
+  display:flex; align-items:center; gap:.45rem;
+  transition: all .2s ease;
+}
+.op-nav-btn:hover { background: rgba(182,242,74,0.1); color:#fff; }
+.op-nav-btn.active { background: rgba(182,242,74,0.18); color:var(--accent-primary); }
+.op-nav-right { display:flex; align-items:center; gap:.75rem; }
+.op-badge-dot {
+  width:8px; height:8px; border-radius:50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px rgba(182,242,74,0.7);
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0%,100%{ transform:scale(1); opacity:1; }
+  50%{ transform:scale(1.4); opacity:.7; }
+}
+
+/* ─── Glass Card ────────────────────────────────────────────── */
+.glass-card {
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1.5rem;
+  transition: border-color .25s, box-shadow .25s;
+}
+.glass-card:hover {
+  border-color: rgba(182,242,74,0.3);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+}
+.glass-card.glow-success {
+  border-color: var(--state-success);
+  box-shadow: 0 0 24px rgba(16,185,129,0.25);
+}
+.glass-card.glow-warning {
+  border-color: var(--state-warning);
+  box-shadow: 0 0 24px rgba(245,158,11,0.25);
+}
+.glass-card.glow-lime {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 30px rgba(182,242,74,0.35);
+}
+
+/* ─── Status Badge ──────────────────────────────────────────── */
+.status-badge {
+  display: inline-flex; align-items:center; gap:.35rem;
+  padding: .28rem .75rem; border-radius: 99px;
+  font-size: .78rem; font-weight: 700;
+  font-family:'Outfit',sans-serif; white-space:nowrap;
+}
+/* Órdenes */
+.status-badge[data-status="Disponible"]    { background:rgba(56,189,248,0.15); color:#38bdf8; }
+.status-badge[data-status="En Progreso"]   { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.status-badge[data-status="Terminado"]     { background:rgba(16,185,129,0.15); color:#10b981; }
+.status-badge[data-status="Cancelada"]     { background:rgba(239,68,68,0.15);  color:#ef4444; }
+.status-badge[data-status="Pendiente"]     { background:rgba(245,158,11,0.12); color:#f59e0b; }
+/* Citas */
+.status-badge[data-status="Confirmada"]    { background:rgba(16,185,129,0.15); color:#10b981; }
+.status-badge[data-status="Completada"]    { background:rgba(182,242,74,0.15); color:#b6f24a; }
+/* Stock */
+.status-badge[data-status="En Stock"]      { background:rgba(16,185,129,0.15); color:#10b981; }
+.status-badge[data-status="Bajo Stock"]    { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.status-badge[data-status="Agotado"]       { background:rgba(239,68,68,0.15);  color:#ef4444; }
+
+/* ─── Contenedor de portal SPA ──────────────────────────────── */
+.op-portal {
+  display: none; flex-direction: column;
+  min-height: 100vh; width: 100%;
+  background: linear-gradient(135deg, #04100e 0%, #071613 55%, #0e2b28 100%);
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+}
+.op-main { flex:1; max-width: 1280px; margin: 0 auto; width:100%; padding: 2rem 1.5rem; }
+
+/* ─── Stat Cards ────────────────────────────────────────────── */
+.op-stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.25rem; margin-bottom:1.75rem; }
+.op-stat-card { display:flex; align-items:center; gap:1rem; }
+.op-stat-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+.op-stat-val { font-size:2rem; font-weight:900; line-height:1; }
+.op-stat-lbl { font-size:.75rem; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:.06em; }
+
+/* ─── Stepper ───────────────────────────────────────────────── */
+.op-stepper { display:flex; align-items:center; gap:0; margin:1.5rem 0; overflow-x:auto; }
+.op-step { display:flex; align-items:center; flex:1; min-width:0; }
+.op-step-bubble {
+  width:36px; height:36px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:.8rem;
+  background: rgba(4, 16, 14, 0.08);
+  border: 2px solid rgba(255,255,255,0.15);
+  color: var(--text-muted);
+  transition: all .3s ease;
+}
+.op-step.active .op-step-bubble {
+  background: var(--gradient-primary);
+  border-color: transparent; color:#04100e;
+  box-shadow: 0 0 16px rgba(182,242,74,0.5);
+}
+.op-step.done .op-step-bubble { background:var(--state-success); border-color:transparent; color:#fff; }
+.op-step-label { font-size:.72rem; font-weight:700; color:var(--text-muted); text-align:center; margin-top:.35rem; }
+.op-step.active .op-step-label { color:var(--accent-primary); }
+.op-step.done .op-step-label { color:var(--state-success); }
+.op-step-line { flex:1; height:2px; background: rgba(4, 16, 14, 0.1); margin:0 .5rem; }
+.op-step.done .op-step-line { background:var(--state-success); }
+
+/* ─── Timeline ──────────────────────────────────────────────── */
+.op-timeline { position:relative; padding-left:1.5rem; }
+.op-timeline::before { content:''; position:absolute; left:.5rem; top:0; bottom:0; width:2px; background: rgba(4, 16, 14, 0.1); }
+.op-timeline-item { position:relative; padding-bottom:1.25rem; }
+.op-timeline-dot {
+  position:absolute; left:-1.1rem; top:.3rem;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--accent-primary);
+  box-shadow:0 0 8px rgba(182,242,74,0.6);
+}
+.op-timeline-date { font-size:.73rem; color:var(--text-muted); font-weight:600; }
+.op-timeline-msg { font-size:.9rem; color:#fff; margin:.2rem 0 0; }
+
+/* ─── Botones ───────────────────────────────────────────────── */
+.op-btn-primary {
+  background: var(--gradient-primary);
+  color: #04100e; border:none; border-radius:10px;
+  padding:.65rem 1.25rem; font-weight:800; font-size:.9rem;
+  font-family:'Outfit',sans-serif; cursor:pointer;
+  display:inline-flex; align-items:center; gap:.5rem;
+  box-shadow: 0 6px 18px rgba(182,242,74,0.4);
+  transition: transform .2s, box-shadow .2s;
+}
+.op-btn-primary:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(182,242,74,0.5); }
+.op-btn-ghost {
+  background: rgba(4, 16, 14, 0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color:#fff; border-radius:10px;
+  padding:.65rem 1.25rem; font-weight:600; font-size:.9rem;
+  font-family:'Outfit',sans-serif; cursor:pointer;
+  display:inline-flex; align-items:center; gap:.5rem;
+  transition: background .2s, border-color .2s;
+}
+.op-btn-ghost:hover { background:rgba(182,242,74,0.1); border-color:rgba(182,242,74,0.3); }
+.op-btn-danger { background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#ef4444; }
+
+/* ─── Toggle disponibilidad mecánico ───────────────────────── */
+.op-toggle-wrap { display:flex; align-items:center; gap:.6rem; cursor:pointer; }
+.op-toggle { position:relative; width:44px; height:24px; }
+.op-toggle input { opacity:0; width:0; height:0; }
+.op-toggle-slider {
+  position:absolute; inset:0; border-radius:99px;
+  background: rgba(4, 16, 14, 0.1); transition:.3s;
+}
+.op-toggle-slider::before {
+  content:''; position:absolute;
+  width:18px; height:18px; border-radius:50%;
+  left:3px; top:3px; background: rgba(4, 16, 14, 0.85);
+  transition:.3s;
+}
+.op-toggle input:checked + .op-toggle-slider { background:var(--state-success); }
+.op-toggle input:checked + .op-toggle-slider::before { transform:translateX(20px); }
+
+/* ─── Responsive tablet ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .op-main { padding: 1.25rem 1rem; }
+  .op-stats-grid { grid-template-columns: 1fr 1fr; }
+  .op-navbar { padding:0 1rem; }
+  .op-nav-links .op-nav-btn span { display:none; } /* Solo iconos en mobile */
+  .op-step-label { display:none; }
+}
+
+/* ─── Portal con navbar horizontal (Recepcionista / Mecánico) ── */
+.op-portal {
+  display: none;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #04100e 0%, #071613 55%, #0e2b28 100%);
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+}
+.op-main {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* ─── Estilos mecánico (bandeja / orden / diagnóstico / repuestos) ── */
+.mp-tab-content { display: none; animation: mpFadeIn .25s ease; }
+.mp-tab-content.active { display: block; }
+@keyframes mpFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.mp-section-card { margin-bottom: 1.25rem; }
+.mp-section-head { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom: 1rem; flex-wrap:wrap; }
+.mp-section-head h3, .mp-section-head h2, .mp-section-head h4 { margin:0; color:#fff; font-weight:800; }
+.mp-section-head p { margin:.2rem 0 0; color:var(--text-muted); font-size:.82rem; }
+.mp-count-badge {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:36px; height:36px; border-radius:999px;
+  padding:0 .75rem; background:rgba(182,242,74,0.16); color:var(--accent-primary);
+  border:1px solid rgba(182,242,74,0.25); font-weight:800;
+}
+.mp-card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; }
+.mp-order-card { display:flex; flex-direction:column; gap:1rem; min-height:100%; }
+.mp-order-head { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; }
+.mp-order-title { font-size:1rem; font-weight:700; color:#fff; }
+.mp-order-subtitle { font-size:.8rem; color:var(--text-secondary); margin-top:.25rem; }
+.mp-order-meta { display:flex; flex-direction:column; gap:.4rem; color:var(--text-secondary); font-size:.84rem; }
+.mp-order-meta i { color:var(--accent-primary); width:16px; }
+.mp-card-actions { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:auto; }
+.mp-empty-state {
+  padding: 2rem; text-align:center; color:var(--text-muted); border:1px dashed rgba(255,255,255,0.15);
+  border-radius: 14px; background: rgba(4, 16, 14, 0.03);
+}
+.mp-chip-list { display:flex; flex-wrap:wrap; gap:.55rem; }
+.mp-chip {
+  border:1px solid rgba(255,255,255,0.12); border-radius:999px; background: rgba(4, 16, 14, 0.04);
+  color:var(--text-secondary); padding:.45rem .75rem; font-size:.8rem; font-weight:700; cursor:pointer;
+}
+.mp-chip.active { background:rgba(182,242,74,0.16); color:#fff; border-color:rgba(182,242,74,0.35); }
+.mp-severity-grid { display:grid; grid-template-columns:repeat(3,minmax(90px,1fr)); gap:.75rem; margin-top:.45rem; }
+.mp-severity-option {
+  display:flex; align-items:center; justify-content:center; gap:.45rem; padding:.75rem .6rem; border-radius:12px;
+  background: rgba(4, 16, 14, 0.04); border:1px solid rgba(255,255,255,0.1); color:var(--text-secondary); font-weight:700; font-size:.82rem;
+}
+.mp-severity-option input { accent-color: var(--accent-primary); }
+.mp-form-grid { display:grid; gap:1rem; }
+.mp-form-grid label { display:flex; flex-direction:column; gap:.45rem; color:var(--text-secondary); font-size:.85rem; font-weight:600; }
+.mp-input, .mp-select, .mp-textarea {
+  width:100%; border:1px solid rgba(255,255,255,0.12); background: rgba(4, 16, 14, 0.05); color:#fff; border-radius:12px;
+  padding:.8rem 1rem; font-family:'Outfit',sans-serif; font-size:.92rem; outline:none;
+}
+.mp-textarea { min-height: 140px; resize: vertical; }
+.mp-modal-backdrop {
+  position:fixed; inset:0; background:rgba(2,6,23,0.76); display:flex; align-items:center; justify-content:center; padding:1rem; z-index:400;
+}
+.mp-modal-card { width:min(480px,100%); }
+.mp-banner {
+  display:none; padding:1rem 1.25rem; border-radius:14px; border:1px solid transparent; font-weight:700;
+  box-shadow:0 8px 24px rgba(0,0,0,0.2);
+}
+.mp-banner.success { background:rgba(16,185,129,0.12); border-color:rgba(16,185,129,0.25); color:#d1fae5; }
+.mp-banner.danger { background:rgba(239,68,68,0.12); border-color:rgba(239,68,68,0.25); color:#fee2e2; }
+
+/* ─── Inputs dark style global para portales operativos ─────── */
+.op-portal input:focus,
+.op-portal textarea:focus,
+.op-portal select:focus {
+  border-color: rgba(182,242,74,0.4) !important;
+  box-shadow: 0 0 0 3px rgba(182,242,74,0.1) !important;
+}
+.op-portal select option {
+  background: #071613;
+  color: #fff;
+}
+
+/* ─── Status badge variantes extra ─────────────────────────── */
+.status-badge[data-status="Con cuenta"]  { background:rgba(16,185,129,0.15); color:#10b981; }
+.status-badge[data-status="Sin cuenta"]  { background:rgba(245,158,11,0.15); color:#f59e0b; }
+.status-badge[data-status="Recibido"]    { background:rgba(56,189,248,0.15); color:#38bdf8; }
+.status-badge[data-status="Diagnóstico"] { background:rgba(182,242,74,0.12); color:#b6f24a; }
+.status-badge[data-status="En reparación"] { background:rgba(245,158,11,0.15); color:#f59e0b; }
+
+
+
+

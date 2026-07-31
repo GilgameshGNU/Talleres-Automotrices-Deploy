@@ -1,39 +1,31 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.3-apache
 
-# Instalar dependencias del sistema requeridas (Alpine) + build tools for PECL
-RUN apk add --no-cache \
-    git \
-    curl \
-    libpng-dev \
-    oniguruma-dev \
-    libxml2-dev \
-    postgresql-dev \
-    zip \
-    unzip \
-    libzip-dev \
-    $PHPIZE_DEPS
-
-# Instalar extensiones de PHP necesarias para Laravel
-RUN docker-php-ext-install pdo_pgsql pdo_mysql mbstring pcntl bcmath gd zip \
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    git curl libpng-dev libonig-dev libxml2-dev libpq-dev \
+    zip unzip libzip-dev \
+    && docker-php-ext-install pdo_pgsql pdo_mysql mbstring pcntl bcmath gd zip \
     && pecl install redis && docker-php-ext-enable redis \
-    && apk del $PHPIZE_DEPS
+    && a2enmod rewrite \
+    && rm -rf /var/lib/apt/lists/*
 
-# Obtener Composer desde la imagen oficial
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Configurar el directorio de trabajo
 WORKDIR /var/www
 
-# Copiar configuración de OPcache
-COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+# Apache: usar public/ como document root
+ENV APACHE_DOCUMENT_ROOT=/var/www/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf /etc/apache2/apache2.conf
 
-# Copiar el código fuente existente al contenedor
+COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY . .
 
-# Instalar las dependencias PHP dentro de la imagen
 RUN composer install --no-interaction --prefer-dist --no-progress --optimize-autoloader
-
-# Dar permisos a las carpetas críticas de Laravel
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-CMD ["sh", "-c", "php artisan migrate --force && php -S 0.0.0.0:${PORT:-8080} -t public"]
+# Script de arranque: configura el puerto dinámico de Railway y corre migraciones
+COPY docker/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+CMD ["/usr/local/bin/start.sh"]

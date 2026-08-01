@@ -851,8 +851,20 @@ async function guardarCita() {
     const fecha = document.getElementById('rp-cita-fecha').value;
     const hora = document.getElementById('rp-cita-hora').value;
     
-    if (!idCliente || !idVehiculo || !fecha || !hora) {
-        if (typeof triggerToast === 'function') triggerToast('Cliente, vehículo, fecha y hora son obligatorios');
+    if (!idCliente) {
+        if (typeof triggerToast === 'function') triggerToast('Selecciona un cliente para la cita');
+        return;
+    }
+    if (!idVehiculo) {
+        if (typeof triggerToast === 'function') triggerToast('Selecciona un vehículo (si el cliente no tiene, ve a Nueva Orden para registrar uno o agrégalo desde el panel)');
+        return;
+    }
+    if (!fecha) {
+        if (typeof triggerToast === 'function') triggerToast('Selecciona la fecha de la cita');
+        return;
+    }
+    if (!hora) {
+        if (typeof triggerToast === 'function') triggerToast('Selecciona la hora de la cita');
         return;
     }
 

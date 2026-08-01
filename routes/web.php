@@ -94,8 +94,8 @@ Route::prefix('api')->group(function () {
             Route::apiResource('pagos',         PagoController::class)->only(['index','store','show','update']);
             Route::apiResource('facturas',      FacturaController::class)->only(['index','store','show','update']);
             Route::get('mecanicos/con-carga',   [MecanicoController::class, 'conCarga']);
-            Route::apiResource('notificaciones', NotificacionController::class)->only(['index','store','show','update']);
             Route::get('notificaciones/no-leidas', [NotificacionController::class, 'noLeidas']);
+            Route::apiResource('notificaciones', NotificacionController::class)->only(['index','store','show','update']);
             
             Route::post('ordenes-trabajo',      [OrdenTrabajoController::class, 'store']);
             Route::put('ordenes-trabajo/{id}',  [OrdenTrabajoController::class, 'update']);

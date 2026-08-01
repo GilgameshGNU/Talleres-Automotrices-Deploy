@@ -45,7 +45,7 @@ class NotificacionController extends Controller
         if (!$user) return response()->json(['message' => 'No autenticado'], 401);
 
         $notificaciones = Notificacion::where('idUsuario', $user->idUsuario)
-            ->where('estado', 'No leído')
+            ->where('leido', false)
             ->orderBy('fecha', 'desc')
             ->get();
             

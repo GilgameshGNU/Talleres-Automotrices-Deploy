@@ -522,8 +522,8 @@
                 <div id="rp-cita-cliente-resultados" style="max-height:160px; overflow-y:auto; margin-top:.5rem;"></div>
             </div>
             <div>
-                <label style="color:var(--text-secondary,#9db8b0); font-size:.82rem; font-weight:600; display:block; margin-bottom:.4rem;">Vehículo</label>
-                <select id="rp-cita-vehiculo" style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:#fff; border-radius:10px; padding:.7rem 1rem; font-family:'Outfit',sans-serif; font-size:.9rem; outline:none;">
+                <label style="color:var(--text-secondary,#9db8b0); font-size:.82rem; font-weight:600; display:block; margin-bottom:.4rem;">Vehículo *</label>
+                <select id="rp-cita-vehiculo" required style="width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:#fff; border-radius:10px; padding:.7rem 1rem; font-family:'Outfit',sans-serif; font-size:.9rem; outline:none;">
                     <option value="">— Selecciona un cliente primero —</option>
                 </select>
             </div>

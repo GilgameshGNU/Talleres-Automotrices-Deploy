@@ -602,8 +602,12 @@ async function crearOrden() {
             loadRecepDashboard();
         } else {
             const err = await res.json();
+            let errorMessage = err.message || 'Verifica los datos';
+            if (err.errors) {
+                errorMessage = Object.values(err.errors).flat().join(' | ');
+            }
             if (typeof triggerToast === 'function')
-                triggerToast('Error: ' + (err.message || 'Verifica los datos'));
+                triggerToast('Error: ' + errorMessage);
         }
     } catch (e) {
         console.error('Error creando orden:', e);
@@ -843,20 +847,22 @@ async function cargarVehiculosCita(idCliente, selectedId) {
 
 async function guardarCita() {
     const idCliente = document.getElementById('rp-cita-cliente-id').value;
+    const idVehiculo = document.getElementById('rp-cita-vehiculo').value;
     const fecha = document.getElementById('rp-cita-fecha').value;
     const hora = document.getElementById('rp-cita-hora').value;
-    if (!idCliente || !fecha || !hora) {
-        if (typeof triggerToast === 'function') triggerToast('Cliente, fecha y hora son obligatorios');
+    
+    if (!idCliente || !idVehiculo || !fecha || !hora) {
+        if (typeof triggerToast === 'function') triggerToast('Cliente, vehículo, fecha y hora son obligatorios');
         return;
     }
 
     const payload = {
         idCliente: parseInt(idCliente),
-        idVehiculo: parseInt(document.getElementById('rp-cita-vehiculo').value) || null,
+        idVehiculo: parseInt(idVehiculo),
         fecha,
         hora,
         motivo: document.getElementById('rp-cita-motivo').value || null,
-        estado: document.getElementById('rp-cita-estado').value,
+        estado: document.getElementById('rp-cita-estado').value
     };
 
     try {

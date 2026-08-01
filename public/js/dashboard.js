@@ -418,14 +418,13 @@ window.addEventListener('popstate', (event) => {
 });
 
 
-// Load all dashboard KPI data
 async function loadPanelDashboard() {
     try {
         const [usuRes, rolRes, servRes, provRes] = await Promise.all([
-            fetch('/api/usuarios', { headers }),
-            fetch('/api/roles', { headers }),
-            fetch('/api/servicios', { headers }),
-            fetch('/api/proveedores', { headers })
+            fetch('/api/usuarios', { headers }).catch(() => ({ ok: false })),
+            fetch('/api/roles', { headers }).catch(() => ({ ok: false })),
+            fetch('/api/servicios', { headers }).catch(() => ({ ok: false })),
+            fetch('/api/proveedores', { headers }).catch(() => ({ ok: false }))
         ]);
         const usuarios = usuRes.ok ? await usuRes.json() : [];
         const roles = rolRes.ok ? await rolRes.json() : [];
